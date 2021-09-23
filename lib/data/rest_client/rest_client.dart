@@ -8,6 +8,7 @@ part 'rest_client.g.dart';
 abstract class RestClient {
   factory RestClient(Dio dio, {String baseUrl}) = _RestClient;
 
-  @GET("/")
-  Future<List<AstronomicalObject>> getAstronomicalObjects();
+  @GET("")
+  Future<List<AstronomicalObject>> getAstronomicalObjects(
+      {@Query("count") int count = 20, @Query("thumbs") bool thumbs = true});
 }

@@ -4,14 +4,17 @@ part 'astronomical_object.g.dart';
 
 @JsonSerializable()
 class AstronomicalObject {
+  @JsonKey(name: "apod_site")
   String? apodSite;
   String? copyright;
   String? date;
   String? description;
   String? hdurl;
+  @JsonKey(name: "media_type")
   String? mediaType;
   String? title;
   String? url;
+  @JsonKey(name: "thumbnail_url")
   String? thumbnailUrl;
 
   AstronomicalObject(
