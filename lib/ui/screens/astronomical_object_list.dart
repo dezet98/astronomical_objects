@@ -1,4 +1,5 @@
 import 'package:codetomobile/bloc/specific/fetch_astronomical_objects_bloc.dart';
+import 'package:codetomobile/shared/extension.dart';
 import 'package:codetomobile/ui/components/bloc_builders/fetch_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -22,7 +23,7 @@ class AstronomicalObjectList extends StatelessWidget {
 
 Widget _buildBloc(BuildContext context) {
   return FetchBlocBuilder(
-    fetchBloc: FetchAtronomicalObjectsBloc(),
+    fetchBloc: context.bloc<FetchAtronomicalObjectsBloc>(),
     buildSuccess: (dynamic data, bool isRefresh) {
       return Text("Work");
     },
