@@ -44,7 +44,17 @@ class FetchBlocBuilder extends StatelessWidget {
   }
 
   Widget _buildInitialState() {
-    return buildInitial ?? CircularProgressIndicator();
+    if (buildInProgress != null) {
+      return buildInitial!;
+    }
+
+    if (isSliver) {
+      return SliverFillRemaining(
+        child: Container(),
+      );
+    }
+
+    return CircularProgressIndicator();
   }
 
   Widget _buildInProgress(bool isRefresh) {
