@@ -1,6 +1,6 @@
 name: codetomobile
 description: A new Flutter project.
-publish_to: 'none'
+publish_to: "none"
 version: 1.0.0+1
 
 environment:
@@ -10,8 +10,11 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_localizations:
-    sdk: flutter  
-    
+    sdk: flutter
+
+  # local database
+  sqflite: ^2.0.0+4
+
   # state managment
   bloc: ^7.2.0
   flutter_bloc: ^7.3.0
@@ -21,25 +24,26 @@ dependencies:
 
   # env helpers
   logger: ^1.1.0
+  path: ^1.8.0
 
   # deal with api and models
-  retrofit: ^2.0.1
-  dio: ^4.0.0
-  json_serializable: ^5.0.2
-  json_annotation: ^4.1.0
+  retrofit: any
+  dio: any
+  json_serializable: any
+  json_annotation: any
 
   cupertino_icons: ^1.0.2
   equatable: ^2.0.3
 
 dependency_overrides:
   # Because every version of flutter_test from sdk depends on meta 1.3.0 and codetomobile depends on meta ^1.7.0, flutter_test from sdk is forbidden.
-  meta: ^1.3.0
+  meta: any
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  retrofit_generator: ^2.0.1+1
-  build_runner: ^2.1.2
+  retrofit_generator: any
+  build_runner: any
 
 flutter:
   generate: true

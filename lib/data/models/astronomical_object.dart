@@ -1,3 +1,4 @@
+import 'package:codetomobile/data/local_database/database_object.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'astronomical_object.g.dart';
@@ -32,4 +33,23 @@ class AstronomicalObject {
       _$AstronomicalObjectFromJson(json);
 
   Map<String, dynamic> toJson() => _$AstronomicalObjectToJson(this);
+
+  static DataBaseObject getDatabaseObject() {
+    return DataBaseObject(
+        databaseColumns: databaseColumns, tableName: tableName);
+  }
+
+  static String tableName = "AstronomicalObject";
+
+  static List<DatabaseColumn> databaseColumns = [
+    DatabaseColumn(name: 'apod_site', columnType: DbColumnType.TEXT),
+    DatabaseColumn(name: 'copyright', columnType: DbColumnType.TEXT),
+    DatabaseColumn(name: 'date', columnType: DbColumnType.TEXT),
+    DatabaseColumn(name: 'description', columnType: DbColumnType.TEXT),
+    DatabaseColumn(name: 'hdurl', columnType: DbColumnType.TEXT),
+    DatabaseColumn(name: 'media_type', columnType: DbColumnType.TEXT),
+    DatabaseColumn(name: 'title', columnType: DbColumnType.TEXT),
+    DatabaseColumn(name: 'url', columnType: DbColumnType.TEXT),
+    DatabaseColumn(name: 'thumbnail_url', columnType: DbColumnType.TEXT),
+  ];
 }

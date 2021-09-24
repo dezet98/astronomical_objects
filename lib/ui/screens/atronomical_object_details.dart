@@ -1,8 +1,11 @@
 import 'package:codetomobile/bloc/specific/router/router_bloc.dart';
+import 'package:codetomobile/data/local_database/local_database_service.dart';
 import 'package:codetomobile/data/models/astronomical_object.dart';
+import 'package:codetomobile/shared/logger/app_logger.dart';
 import 'package:codetomobile/shared/view/dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AtronomicalObjectDetailsArgs extends RouteArgs {
   final AstronomicalObject astronomicalObject;
@@ -21,7 +24,7 @@ class AtronomicalObjectDetails extends StatelessWidget {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          _buildAppBar(),
+          _buildAppBar(context),
           SliverPadding(
             padding: const EdgeInsets.symmetric(
               horizontal: Dimensions.basic,
@@ -34,19 +37,12 @@ class AtronomicalObjectDetails extends StatelessWidget {
     );
   }
 
-  Widget _buildAppBar() {
+  Widget _buildAppBar(BuildContext context) {
     return SliverAppBar(
       expandedHeight: 300.0,
       floating: true,
       pinned: true,
       snap: true,
-      actions: [
-        IconButton(
-          icon: Icon(Icons.favorite_border_outlined),
-          onPressed: () {},
-          color: Colors.white,
-        )
-      ],
       actionsIconTheme: IconThemeData(opacity: 0.0),
       flexibleSpace: Stack(
         children: <Widget>[
@@ -64,7 +60,19 @@ class AtronomicalObjectDetails extends StatelessWidget {
             child: SafeArea(
               child: IconButton(
                 icon: Icon(Icons.favorite_border_outlined),
-                onPressed: () {},
+                onPressed: () async {
+                  var a =
+                      await RepositoryProvider.of<LocalDatabaseService>(context)
+                          .insertQuery(AstronomicalObject.tableName,
+                              args.astronomicalObject.toJson());
+
+                  var x =
+                      await RepositoryProvider.of<LocalDatabaseService>(context)
+                          .query(AstronomicalObject.tableName);
+
+                  AppLogger()
+                      .log(message: x.toString(), logLevel: LogLevel.debug);
+                },
                 color: Colors.white,
               ),
             ),
@@ -73,15 +81,6 @@ class AtronomicalObjectDetails extends StatelessWidget {
       ),
     );
   }
-
-// FlexibleSpaceBar(
-//         stretchModes: [StretchMode.zoomBackground],
-//         collapseMode: CollapseMode.none,
-//         background: Image.network(
-//           args.astronomicalObject.hdurl ?? "",
-//           fit: BoxFit.cover,
-//         ),
-//       ),
 
   Widget _buildContent(BuildContext context) {
     return SliverList(
