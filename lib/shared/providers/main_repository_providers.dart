@@ -12,7 +12,7 @@ List<RepositoryProvider> getMainRepositoryProviders() => [
       RepositoryProvider<LocalDatabaseService>(
           create: (_) => LocalDatabaseService(
                 "daniel_app_database",
-                2,
+                3,
                 [AstronomicalObject.getDatabaseObject()],
               ))
     ];

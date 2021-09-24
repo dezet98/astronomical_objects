@@ -6,18 +6,19 @@ part of 'astronomical_object.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-AstronomicalObject _$AstronomicalObjectFromJson(Map<String, dynamic> json) =>
-    AstronomicalObject(
-      apodSite: json['apod_site'] as String?,
-      copyright: json['copyright'] as String?,
-      date: json['date'] as String?,
-      description: json['description'] as String?,
-      hdurl: json['hdurl'] as String?,
-      mediaType: json['media_type'] as String?,
-      title: json['title'] as String?,
-      url: json['url'] as String?,
-      thumbnailUrl: json['thumbnail_url'] as String?,
-    );
+AstronomicalObject _$AstronomicalObjectFromJson(Map<String, dynamic> json) {
+  return AstronomicalObject(
+    apodSite: json['apod_site'] as String?,
+    copyright: json['copyright'] as String?,
+    date: json['date'] as String?,
+    description: json['description'] as String?,
+    hdurl: json['hdurl'] as String?,
+    mediaType: json['media_type'] as String?,
+    title: json['title'] as String?,
+    url: json['url'] as String?,
+    thumbnailUrl: json['thumbnail_url'] as String?,
+  );
+}
 
 Map<String, dynamic> _$AstronomicalObjectToJson(AstronomicalObject instance) =>
     <String, dynamic>{

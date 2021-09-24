@@ -50,7 +50,7 @@ class AtronomicalObjectDetails extends StatelessWidget {
             stretchModes: [StretchMode.zoomBackground],
             collapseMode: CollapseMode.parallax,
             background: Image.network(
-              args.astronomicalObject.hdurl ?? "",
+              args.astronomicalObject.url ?? "",
               fit: BoxFit.cover,
             ),
           ),

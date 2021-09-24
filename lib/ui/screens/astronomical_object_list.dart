@@ -1,5 +1,6 @@
-import 'package:codetomobile/bloc/abstract/fetch/fetch_bloc.dart';
+import 'package:codetomobile/bloc/abstract/load_data/load_data_bloc.dart';
 import 'package:codetomobile/bloc/specific/fetch_astronomical_objects_bloc.dart';
+import 'package:codetomobile/bloc/specific/load_favorites_astronomical_objects_bloc.dart';
 import 'package:codetomobile/bloc/specific/router/router_bloc.dart';
 import 'package:codetomobile/data/models/astronomical_object.dart';
 import 'package:codetomobile/shared/extension.dart';
@@ -11,7 +12,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:icon_badge/icon_badge.dart';
 
 import 'atronomical_object_details.dart';
 
@@ -28,9 +31,9 @@ class AstronomicalObjectList extends StatelessWidget {
         child: CustomScrollView(
           slivers: <Widget>[
             SliverAppBar(toolbarHeight: 0.0),
-            FetchBlocBuilder(
+            LoadDataBlocBuilder(
               isSliver: true,
-              fetchBloc: context.bloc<FetchAtronomicalObjectsBloc>(),
+              loadDataBloc: context.bloc<FetchAtronomicalObjectsBloc>(),
               buildSuccess: (dynamic data, bool isRefresh) {
                 return _buildGrid(context, data);
               },
@@ -48,20 +51,36 @@ AppBar _buildAppBar(BuildContext context) {
       AppLocalizations.of(context)!.astronomical_object_list_app_bar_title,
     ),
     actions: [
-      IconButton(
-          icon: Icon(Icons.favorite),
-          onPressed: () {
-            context
-                .bloc<RouterBloc>()
-                .add(RouterNavigateToEvent(RouteName.FAVORITES_LIST));
-          })
+      BlocBuilder(
+          bloc: context.bloc<LoadFavoritesAtronomicalObjectsBloc>(),
+          buildWhen: (previous, current) {
+            return current is LoadDataInitialState ||
+                    current is LoadDataSuccessState
+                ? true
+                : false;
+          },
+          builder: (context, state) {
+            return IconBadge(
+              icon: Icon(Icons.favorite),
+              itemCount:
+                  context.bloc<LoadFavoritesAtronomicalObjectsBloc>().count,
+              badgeColor: Colors.red,
+              itemColor: Colors.white,
+              hideZero: true,
+              onTap: () {
+                context
+                    .bloc<RouterBloc>()
+                    .add(RouterNavigateToEvent(RouteName.FAVORITES_LIST));
+              },
+            );
+          }),
     ],
     backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
   );
 }
 
 Future<void> _onRefresh(BuildContext context) async {
-  context.bloc<FetchAtronomicalObjectsBloc>().add(FetchRefreshEvent());
+  context.bloc<FetchAtronomicalObjectsBloc>().add(LoadDataRefreshEvent());
 
   await Future.delayed(Duration(seconds: 2));
 }

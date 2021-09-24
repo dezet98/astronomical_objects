@@ -12,6 +12,9 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
+  # view helpers
+  icon_badge: any
+
   # local database
   sqflite: ^2.0.0+4
 
