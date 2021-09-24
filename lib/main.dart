@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:codetomobile/shared/logger/simple_bloc_observer.dart';
 import 'package:codetomobile/shared/providers/main_bloc_providers.dart';
 import 'package:codetomobile/shared/providers/main_repository_providers.dart';
-import 'package:codetomobile/ui/screens/astronomical_object_list.dart';
+import 'package:codetomobile/ui/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.blue,
             visualDensity: VisualDensity.adaptivePlatformDensity,
           ),
-          home: AstronomicalObjectList(),
+          home: HomeScreen(),
         ),
       ),
     );
