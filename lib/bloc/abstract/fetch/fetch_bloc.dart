@@ -8,14 +8,16 @@ part 'fetch_state.dart';
 
 abstract class FetchBloc<ResultType> extends Bloc<FetchEvent, FetchState> {
   Future<ResultType> fetch();
+  bool fetchComplete = false;
 
   FetchBloc() : super(FetchInitialState()) {
     on<FetchEvent>((event, emit) async {
+      fetchComplete = false;
       bool isRefresh = event is FetchRefreshEvent;
-
       try {
         emit.call(FetchInProgressState(isRefresh: isRefresh));
-        ResultType data = await fetch();
+        ResultType data =
+            await fetch().whenComplete(() => fetchComplete = true);
         emit.call(FetchSuccessState(data: data, isRefresh: isRefresh));
       } catch (e) {
         emit.call(FetchFailureState(

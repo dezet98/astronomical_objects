@@ -24,6 +24,13 @@ class FetchBlocBuilder extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder(
         bloc: fetchBloc,
+        buildWhen: (previous, current) {
+          if (current is FetchInProgressState && current.isRefresh) {
+            return false;
+          }
+
+          return true;
+        },
         builder: (BuildContext context, state) {
           Widget? finalWidget;
 
