@@ -26,7 +26,7 @@ void routerBlocListener(BuildContext context, RouterState state) {
     Navigator.push(context, state.route);
   } else if (state is RouterChangeRouteFailureState) {
     AppLogger().log(
-      message: "Navigation Error: ${state.routerError}\n ${state.message}",
+      message: "Navigation Error: ${state.routerError}\n${state.message ?? ""}",
       logLevel: LogLevel.error,
     );
   }

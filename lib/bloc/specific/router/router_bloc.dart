@@ -42,7 +42,9 @@ Widget? _fromRouteName(RouteName routeName, RouteArgs? routeArgs) {
       case RouteName.ASTRONOMICAL_OBJECT_LIST:
         return AstronomicalObjectList();
       case RouteName.ASTRONOMICAL_OBJECT_DETAILS:
-        return AtronomicalObjectDetails();
+        AtronomicalObjectDetailsArgs args =
+            routeArgs as AtronomicalObjectDetailsArgs;
+        return AtronomicalObjectDetails(args: args);
       case RouteName.FAVORITES_LIST:
         return FavoritesList();
     }
