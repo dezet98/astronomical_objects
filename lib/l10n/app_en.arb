@@ -1,4 +1,8 @@
 {
     "title": "Daniel_Zaczek_App",
-    "astronomical_object_list_app_bar_title": "Astronomy Pictures of the Day"
+    "astronomical_object_list_app_bar_title": "Astronomy Pictures of the Day",
+    "favorite_screen_app_bar_title": "Favourites",
+    "favorite_screen_empty_state_text": "No Favorites",
+    "favorite_screen_empty_state_description": "Like an astronomical object and it will show up here.",
+    "favorite_screen_delete_action": "DELETE"
 }

@@ -13,3 +13,7 @@ class LoadDataInitialEvent extends LoadDataEvent {
 class LoadDataRefreshEvent extends LoadDataEvent {
   LoadDataRefreshEvent();
 }
+
+class LoadDataReloadEvent extends LoadDataEvent {
+  LoadDataReloadEvent();
+}

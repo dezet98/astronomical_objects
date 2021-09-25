@@ -3,30 +3,33 @@ import 'package:codetomobile/data/models/astronomical_object.dart';
 import 'package:codetomobile/data/repositories/astronomical_object_repository.dart';
 import 'package:collection/collection.dart';
 
-class LoadFavoritesAtronomicalObjectsBloc extends LoadDataBloc {
+class LoadFavoritesAtronomicalObjectsBloc
+    extends LoadDataBloc<List<AstronomicalObject>> {
   AstronomicalObjectRepository _astronomicalObjectRepository;
 
-  LoadFavoritesAtronomicalObjectsBloc(this._astronomicalObjectRepository);
+  LoadFavoritesAtronomicalObjectsBloc(this._astronomicalObjectRepository)
+      : super([]);
 
-  int count = 0;
-  List<AstronomicalObject> astronomicalObject = [];
+  int get count => data.length;
 
   @override
   Future<List<AstronomicalObject>> load() async {
-    var objects =
-        await _astronomicalObjectRepository.getFavoritesAstronomicalObjects();
-
-    count = objects.length;
-    astronomicalObject = objects;
-
-    return objects;
+    return await _astronomicalObjectRepository
+        .getFavoritesAstronomicalObjects();
   }
 
   bool isFavorite(String? apodSite) {
     if (apodSite == null) return false;
 
-    return astronomicalObject
-            .firstWhereOrNull((element) => element.apodSite == apodSite) !=
+    return data.firstWhereOrNull((element) => element.apodSite == apodSite) !=
         null;
+  }
+
+  void removeLocallyElement(String? apochSite) {
+    data.removeWhere((element) => element.apodSite == apochSite);
+  }
+
+  void addLocallyElement(AstronomicalObject astronomicalObject) {
+    data.add(astronomicalObject);
   }
 }

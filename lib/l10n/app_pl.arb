@@ -1,4 +1,8 @@
 {
     "title": "Daniel_Zaczek_Aplikacja",
-    "astronomical_object_list_app_bar_title": "Astronomiczne zdjęcia dnia"
+    "astronomical_object_list_app_bar_title": "Astronomiczne zdjęcia dnia",
+    "favorite_screen_app_bar_title": "Ulubione",
+    "favorite_screen_empty_state_text": "Brak Ulubionych",
+    "favorite_screen_empty_state_description": "Polub obiekt astronomiczny a pojawi się tutaj.",
+    "favorite_screen_delete_action": "USUŃ"
 }

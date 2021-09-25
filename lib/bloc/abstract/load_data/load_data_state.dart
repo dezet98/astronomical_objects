@@ -14,10 +14,9 @@ class LoadDataInProgressState extends LoadDataState {
 }
 
 class LoadDataSuccessState<T> extends LoadDataState {
-  final T data;
   final bool isRefresh;
 
-  LoadDataSuccessState({required this.data, this.isRefresh = false});
+  LoadDataSuccessState({this.isRefresh = false});
 }
 
 class LoadDataFailureState extends LoadDataState {

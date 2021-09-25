@@ -7,7 +7,7 @@ import 'package:codetomobile/shared/extension.dart';
 import 'package:codetomobile/shared/logger/app_logger.dart';
 import 'package:codetomobile/shared/routes.dart';
 import 'package:codetomobile/shared/view/dimensions.dart';
-import 'package:codetomobile/ui/components/bloc_builders/fetch_builder.dart';
+import 'package:codetomobile/ui/components/bloc_builders/load_data_builder.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -68,9 +68,8 @@ AppBar _buildAppBar(BuildContext context) {
               itemColor: Colors.white,
               hideZero: true,
               onTap: () {
-                context
-                    .bloc<RouterBloc>()
-                    .add(RouterNavigateToEvent(RouteName.FAVORITES_LIST));
+                context.bloc<RouterBloc>().add(
+                    RouterNavigateToEvent(RouteName.FAVORITES_LIST_SCREEN));
               },
             );
           }),
@@ -80,7 +79,7 @@ AppBar _buildAppBar(BuildContext context) {
 }
 
 Future<void> _onRefresh(BuildContext context) async {
-  context.bloc<FetchAtronomicalObjectsBloc>().add(LoadDataRefreshEvent());
+  context.bloc<FetchAtronomicalObjectsBloc>().add(LoadDataReloadEvent());
 
   await Future.delayed(Duration(seconds: 2));
 }

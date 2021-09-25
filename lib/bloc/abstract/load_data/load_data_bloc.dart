@@ -9,22 +9,44 @@ part 'load_data_state.dart';
 abstract class LoadDataBloc<ResultType>
     extends Bloc<LoadDataEvent, LoadDataState> {
   Future<ResultType> load();
-  bool loadComplete = false;
+  late ResultType data;
 
-  LoadDataBloc() : super(LoadDataInitialState()) {
-    on<LoadDataEvent>((event, emit) async {
-      loadComplete = false;
-      bool isRefresh = event is LoadDataRefreshEvent;
+  LoadDataBloc(ResultType initalData) : super(LoadDataInitialState()) {
+    data = initalData;
+
+    on<LoadDataRefreshEvent>((event, emit) async {
       try {
-        emit.call(LoadDataInProgressState(isRefresh: isRefresh));
-        ResultType data = await load().whenComplete(() => loadComplete = true);
-        emit.call(LoadDataSuccessState(data: data, isRefresh: isRefresh));
+        emit.call(LoadDataInProgressState(isRefresh: true));
+        emit.call(LoadDataSuccessState(isRefresh: true));
       } catch (e) {
         emit.call(LoadDataFailureState(
-            loadDataError: LoadDataError.undefined, isRefresh: isRefresh));
+            loadDataError: LoadDataError.undefined, isRefresh: true));
+      }
+    });
+
+    on<LoadDataInitialEvent>((event, emit) async {
+      try {
+        emit.call(LoadDataInProgressState());
+        data = await load();
+        emit.call(LoadDataSuccessState());
+      } catch (e) {
+        emit.call(LoadDataFailureState(loadDataError: LoadDataError.undefined));
+      }
+    });
+
+    on<LoadDataReloadEvent>((event, emit) async {
+      try {
+        emit.call(LoadDataInProgressState(isRefresh: true));
+        data = await load();
+        emit.call(LoadDataSuccessState(isRefresh: true));
+      } catch (e) {
+        emit.call(LoadDataFailureState(
+            loadDataError: LoadDataError.undefined, isRefresh: true));
       }
     });
 
     add(LoadDataInitialEvent());
   }
 }
+
+enum LoadData { INITIAL, REFRESH_WITH_LOAD, REFRESH }

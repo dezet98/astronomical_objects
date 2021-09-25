@@ -22,31 +22,44 @@ class FavoriteAstronomicalObjectCubit
   }
 
   Future<void> changeFavorite() async {
-    if (state is FavoriteAstronomicalObjectChangeInProgressState) {
-      return;
-    }
-
     try {
       emit(FavoriteAstronomicalObjectChangeInProgressState());
       if (isFavorite) {
-        await _remove();
+        await _removeFromLocalDatabase();
       } else {
-        await _add();
+        await _addToLocalDatabase();
       }
-      _loadFavoritesAtronomicalObjectsBloc.add(LoadDataRefreshEvent());
+      _loadFavoritesAtronomicalObjectsBloc.add(LoadDataReloadEvent());
       emit(FavoriteAstronomicalObjectChangeSuccessState());
     } catch (e) {
       emit(FavoriteAstronomicalObjectChangeFailureState());
     }
   }
 
-  Future<void> _remove() async {
+  Future<void> remove() async {
+    try {
+      emit(FavoriteAstronomicalObjectChangeInProgressState());
+
+      _loadFavoritesAtronomicalObjectsBloc
+          .removeLocallyElement(_astronomicalObject.apodSite);
+      if (_loadFavoritesAtronomicalObjectsBloc.count == 0) {
+        _loadFavoritesAtronomicalObjectsBloc.add(LoadDataRefreshEvent());
+      }
+      await _removeFromLocalDatabase();
+
+      emit(FavoriteAstronomicalObjectChangeSuccessState());
+    } catch (e) {
+      emit(FavoriteAstronomicalObjectChangeFailureState());
+    }
+  }
+
+  Future<void> _removeFromLocalDatabase() async {
     await _astronomicalObjectRepository
         .deleteFavoriteAstronomicalObject(_astronomicalObject.apodSite ?? "");
     isFavorite = false;
   }
 
-  Future<void> _add() async {
+  Future<void> _addToLocalDatabase() async {
     await _astronomicalObjectRepository
         .saveFavoriteAstronomicalObject(_astronomicalObject);
     isFavorite = true;

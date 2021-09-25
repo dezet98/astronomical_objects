@@ -5,7 +5,7 @@ import 'package:codetomobile/data/repositories/astronomical_object_repository.da
 class FetchAtronomicalObjectsBloc extends LoadDataBloc {
   AstronomicalObjectRepository _astronomicalObjectRepository;
 
-  FetchAtronomicalObjectsBloc(this._astronomicalObjectRepository);
+  FetchAtronomicalObjectsBloc(this._astronomicalObjectRepository) : super([]);
 
   @override
   Future<List<AstronomicalObject>> load() {

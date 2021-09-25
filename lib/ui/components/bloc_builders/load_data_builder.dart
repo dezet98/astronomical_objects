@@ -41,7 +41,7 @@ class LoadDataBlocBuilder extends StatelessWidget {
           } else if (state is LoadDataFailureState) {
             finalWidget = _buildError(state.loadDataError, state.isRefresh);
           } else if (state is LoadDataSuccessState) {
-            finalWidget = buildSuccess(state.data, state.isRefresh);
+            finalWidget = buildSuccess(loadDataBloc.data, state.isRefresh);
           }
 
           assert(finalWidget != null);
