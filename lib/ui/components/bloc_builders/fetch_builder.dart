@@ -71,7 +71,7 @@ class LoadDataBlocBuilder extends StatelessWidget {
 
     if (isSliver) {
       return SliverFillRemaining(
-        child: Container(),
+        child: CircularProgressIndicator(),
       );
     }
 

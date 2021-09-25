@@ -40,10 +40,13 @@ class AstronomicalObject {
   }
 
   static String tableName = "AstronomicalObject";
+  static String apodSiteColumnName = "apod_site";
 
   static List<DatabaseColumn> databaseColumns = [
     DatabaseColumn(
-        name: 'apod_site', columnType: DbColumnType.TEXT, isPrimaryKey: true),
+        name: apodSiteColumnName,
+        columnType: DbColumnType.TEXT,
+        isPrimaryKey: true),
     DatabaseColumn(name: 'copyright', columnType: DbColumnType.TEXT),
     DatabaseColumn(name: 'date', columnType: DbColumnType.TEXT),
     DatabaseColumn(name: 'description', columnType: DbColumnType.TEXT),

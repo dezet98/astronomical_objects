@@ -9,4 +9,8 @@ extension BlocExtension on BuildContext {
   T bloc<T extends Bloc>() {
     return BlocProvider.of<T>(this);
   }
+
+  T cubit<T extends Cubit>() {
+    return BlocProvider.of<T>(this);
+  }
 }

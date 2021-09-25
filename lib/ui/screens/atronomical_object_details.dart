@@ -1,7 +1,9 @@
+import 'package:codetomobile/bloc/specific/favorite_astronomical_object/favorite_astronomical_object_cubit.dart';
+import 'package:codetomobile/bloc/specific/load_favorites_astronomical_objects_bloc.dart';
 import 'package:codetomobile/bloc/specific/router/router_bloc.dart';
-import 'package:codetomobile/data/local_database/local_database_service.dart';
 import 'package:codetomobile/data/models/astronomical_object.dart';
-import 'package:codetomobile/shared/logger/app_logger.dart';
+import 'package:codetomobile/data/repositories/astronomical_object_repository.dart';
+import 'package:codetomobile/shared/extension.dart';
 import 'package:codetomobile/shared/view/dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -58,22 +60,39 @@ class AtronomicalObjectDetails extends StatelessWidget {
             right: 0.0,
             top: 0.0,
             child: SafeArea(
-              child: IconButton(
-                icon: Icon(Icons.favorite_border_outlined),
-                onPressed: () async {
-                  var a =
-                      await RepositoryProvider.of<LocalDatabaseService>(context)
-                          .insertQuery(AstronomicalObject.tableName,
-                              args.astronomicalObject.toJson());
-
-                  var x =
-                      await RepositoryProvider.of<LocalDatabaseService>(context)
-                          .query(AstronomicalObject.tableName);
-
-                  AppLogger()
-                      .log(message: x.toString(), logLevel: LogLevel.debug);
-                },
-                color: Colors.white,
+              child: BlocProvider(
+                create: (_) => FavoriteAstronomicalObjectCubit(
+                  RepositoryProvider.of<AstronomicalObjectRepository>(context),
+                  args.astronomicalObject,
+                  context.bloc<LoadFavoritesAtronomicalObjectsBloc>(),
+                ),
+                child: Builder(
+                  builder: (context) => IconButton(
+                    icon: BlocBuilder(
+                        bloc: context.cubit<FavoriteAstronomicalObjectCubit>(),
+                        buildWhen: (previous, current) {
+                          return current
+                                      is FavoriteAstronomicalObjectInitialState ||
+                                  current
+                                      is FavoriteAstronomicalObjectChangeSuccessState
+                              ? true
+                              : false;
+                        },
+                        builder: (context, state) {
+                          return context
+                                  .cubit<FavoriteAstronomicalObjectCubit>()
+                                  .isFavorite
+                              ? Icon(Icons.favorite_outlined)
+                              : Icon(Icons.favorite_outline_rounded);
+                        }),
+                    onPressed: () async {
+                      await context
+                          .cubit<FavoriteAstronomicalObjectCubit>()
+                          .changeFavorite();
+                    },
+                    color: Colors.white,
+                  ),
+                ),
               ),
             ),
           ),

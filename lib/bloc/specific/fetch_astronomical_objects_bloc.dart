@@ -1,14 +1,14 @@
 import 'package:codetomobile/bloc/abstract/load_data/load_data_bloc.dart';
 import 'package:codetomobile/data/models/astronomical_object.dart';
-import 'package:codetomobile/data/rest_client/rest_client.dart';
+import 'package:codetomobile/data/repositories/astronomical_object_repository.dart';
 
 class FetchAtronomicalObjectsBloc extends LoadDataBloc {
-  RestClient _restClient;
+  AstronomicalObjectRepository _astronomicalObjectRepository;
 
-  FetchAtronomicalObjectsBloc(this._restClient);
+  FetchAtronomicalObjectsBloc(this._astronomicalObjectRepository);
 
   @override
   Future<List<AstronomicalObject>> load() {
-    return _restClient.getAstronomicalObjects();
+    return _astronomicalObjectRepository.fetchAstronomicalObject();
   }
 }

@@ -16,7 +16,9 @@ dependencies:
   icon_badge: any
 
   # local database
-  sqflite: ^2.0.0+4
+  sqflite_common_ffi: any
+  sqlite3_flutter_libs: any
+  sqflite: any
 
   # state managment
   bloc: ^7.2.0
@@ -28,6 +30,7 @@ dependencies:
   # env helpers
   logger: ^1.1.0
   path: ^1.8.0
+  path_provider: ^2.0.1
 
   # deal with api and models
   retrofit: any

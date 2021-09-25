@@ -1,26 +1,32 @@
 import 'package:codetomobile/bloc/abstract/load_data/load_data_bloc.dart';
-import 'package:codetomobile/data/local_database/local_database_service.dart';
 import 'package:codetomobile/data/models/astronomical_object.dart';
+import 'package:codetomobile/data/repositories/astronomical_object_repository.dart';
+import 'package:collection/collection.dart';
 
 class LoadFavoritesAtronomicalObjectsBloc extends LoadDataBloc {
-  LocalDatabaseService _localDatabaseService;
+  AstronomicalObjectRepository _astronomicalObjectRepository;
 
-  LoadFavoritesAtronomicalObjectsBloc(this._localDatabaseService);
+  LoadFavoritesAtronomicalObjectsBloc(this._astronomicalObjectRepository);
 
   int count = 0;
+  List<AstronomicalObject> astronomicalObject = [];
 
   @override
   Future<List<AstronomicalObject>> load() async {
-    var results =
-        await _localDatabaseService.query(AstronomicalObject.tableName);
+    var objects =
+        await _astronomicalObjectRepository.getFavoritesAstronomicalObjects();
 
-    var astronomicalObjects = results
-        .map((astronomicalObjectJson) =>
-            AstronomicalObject.fromJson(astronomicalObjectJson))
-        .toList();
+    count = objects.length;
+    astronomicalObject = objects;
 
-    count = astronomicalObjects.length;
+    return objects;
+  }
 
-    return astronomicalObjects;
+  bool isFavorite(String? apodSite) {
+    if (apodSite == null) return false;
+
+    return astronomicalObject
+            .firstWhereOrNull((element) => element.apodSite == apodSite) !=
+        null;
   }
 }
