@@ -61,7 +61,7 @@ class LoadDataBlocBuilder extends StatelessWidget {
       );
     }
 
-    return CircularProgressIndicator();
+    return const CircularProgressIndicator();
   }
 
   Widget _buildInProgress(bool isRefresh) {
@@ -70,12 +70,12 @@ class LoadDataBlocBuilder extends StatelessWidget {
     }
 
     if (isSliver) {
-      return SliverFillRemaining(
-        child: CircularProgressIndicator(),
+      return const SliverFillRemaining(
+        child: const CircularProgressIndicator(),
       );
     }
 
-    return CircularProgressIndicator();
+    return const CircularProgressIndicator();
   }
 
   Widget _buildError(LoadDataError error, bool isRefresh) {
@@ -89,6 +89,6 @@ class LoadDataBlocBuilder extends StatelessWidget {
       );
     }
 
-    return Text("Error");
+    return const Text("Error");
   }
 }

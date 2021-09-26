@@ -30,11 +30,11 @@ Widget buildFavoriteList(
               Dismissible(
                 key: Key(object.apodSite ?? ""),
                 direction: DismissDirection.endToStart,
-                onDismissed: (direction) => onDismissed(context, direction),
+                onDismissed: (direction) => _onDismissed(context, direction),
                 background: _buildDismissBackground(context),
                 child: buildFavoriteListTile(context, object),
               ),
-              Divider(
+              const Divider(
                 indent: Dimensions.basic,
                 endIndent: Dimensions.basic,
                 height: 0.0,
@@ -50,7 +50,7 @@ Widget buildFavoriteList(
 Widget _buildDismissBackground(BuildContext context) {
   return Container(
     alignment: Alignment.centerRight,
-    padding: EdgeInsets.only(right: Dimensions.basic),
+    padding: const EdgeInsets.only(right: Dimensions.basic),
     color: Colors.red,
     child: Row(
       mainAxisAlignment: MainAxisAlignment.end,
@@ -62,8 +62,8 @@ Widget _buildDismissBackground(BuildContext context) {
               .button!
               .copyWith(color: Theme.of(context).cardColor),
         ),
-        SizedBox(width: Dimensions.basic),
-        Icon(
+        const SizedBox(width: Dimensions.basic),
+        const Icon(
           Icons.delete,
           color: Colors.white,
         ),
@@ -72,6 +72,6 @@ Widget _buildDismissBackground(BuildContext context) {
   );
 }
 
-void onDismissed(BuildContext context, DismissDirection direction) {
+void _onDismissed(BuildContext context, DismissDirection direction) {
   context.cubit<FavoriteAstronomicalObjectCubit>().remove();
 }

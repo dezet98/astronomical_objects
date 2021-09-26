@@ -7,12 +7,12 @@ import 'package:codetomobile/shared/view/dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-import '../atronomical_object_details.dart';
+import '../astronomical_object_details/atronomical_object_details.dart';
 
 Widget buildFavoriteListTile(
     BuildContext context, AstronomicalObject astronomicalObject) {
   return ListTile(
-    contentPadding: EdgeInsets.symmetric(
+    contentPadding: const EdgeInsets.symmetric(
         horizontal: Dimensions.basic, vertical: Dimensions.basic),
     title: Text(
       astronomicalObject.title ?? "",
@@ -38,7 +38,7 @@ Widget buildFavoriteListTile(
                   "Error when loading ${astronomicalObject.url}\n$stackTrace",
               logLevel: LogLevel.error);
 
-          return Text('😢');
+          return const Text('😢');
         },
       ),
     ),

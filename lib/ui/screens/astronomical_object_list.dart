@@ -16,7 +16,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:icon_badge/icon_badge.dart';
 
-import 'atronomical_object_details.dart';
+import 'astronomical_object_details/atronomical_object_details.dart';
 
 class AstronomicalObjectList extends StatelessWidget {
   const AstronomicalObjectList({Key? key}) : super(key: key);
@@ -25,12 +25,12 @@ class AstronomicalObjectList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _buildAppBar(context),
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: RefreshIndicator(
         onRefresh: () async => await _onRefresh(context),
         child: CustomScrollView(
           slivers: <Widget>[
-            SliverAppBar(toolbarHeight: 0.0),
+            const SliverAppBar(toolbarHeight: 0.0),
             LoadDataBlocBuilder(
               isSliver: true,
               loadDataBloc: context.bloc<FetchAtronomicalObjectsBloc>(),
@@ -61,7 +61,7 @@ AppBar _buildAppBar(BuildContext context) {
           },
           builder: (context, state) {
             return IconBadge(
-              icon: Icon(Icons.favorite),
+              icon: const Icon(Icons.favorite),
               itemCount:
                   context.bloc<LoadFavoritesAtronomicalObjectsBloc>().count,
               badgeColor: Colors.red,
@@ -87,7 +87,7 @@ Future<void> _onRefresh(BuildContext context) async {
 Widget _buildGrid(
     BuildContext context, List<AstronomicalObject> astronomicalObjects) {
   return SliverPadding(
-    padding: EdgeInsets.all(Dimensions.verySmall),
+    padding: const EdgeInsets.all(Dimensions.verySmall),
     sliver: SliverGrid(
       delegate: SliverChildBuilderDelegate(
         (context, index) {
@@ -95,7 +95,7 @@ Widget _buildGrid(
         },
         childCount: astronomicalObjects.length,
       ),
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         mainAxisSpacing: Dimensions.small,
         crossAxisSpacing: Dimensions.verySmall,
@@ -133,7 +133,7 @@ Widget _buildCard(BuildContext context, AstronomicalObject astronomicalObject) {
                         "Error when loading ${astronomicalObject.url}\n$stackTrace",
                     logLevel: LogLevel.error);
 
-                return Text('😢');
+                return const Text('😢');
               },
             ),
           ),

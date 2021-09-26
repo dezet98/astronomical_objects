@@ -12,10 +12,13 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
-  # view helpers
-  icon_badge: any
+  # deal with api and models
+  retrofit: any
+  dio: any
+  json_serializable: any
+  json_annotation: any
 
-  # local database
+  # local database, works on windows and macos
   sqflite_common_ffi: any
   sqlite3_flutter_libs: any
   sqflite: any
@@ -27,19 +30,16 @@ dependencies:
   # languages
   intl: ^0.17.0
 
-  # env helpers
+  # util helpers
   logger: ^1.1.0
   path: ^1.8.0
   path_provider: ^2.0.1
-
-  # deal with api and models
-  retrofit: any
-  dio: any
-  json_serializable: any
-  json_annotation: any
-
-  cupertino_icons: ^1.0.2
   equatable: ^2.0.3
+
+  # view helpers
+  icon_badge: any
+  photo_view: any
+  cupertino_icons: ^1.0.2
 
 dependency_overrides:
   # Because every version of flutter_test from sdk depends on meta 1.3.0 and codetomobile depends on meta ^1.7.0, flutter_test from sdk is forbidden.

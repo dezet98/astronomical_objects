@@ -4,5 +4,8 @@
     "favorite_screen_app_bar_title": "Ulubione",
     "favorite_screen_empty_state_text": "Brak Ulubionych",
     "favorite_screen_empty_state_description": "Polub obiekt astronomiczny a pojawi się tutaj.",
-    "favorite_screen_delete_action": "USUŃ"
+    "favorite_screen_delete_action": "USUŃ",
+    "astronomical_object_details_about": "Opis",
+    "astronomical_object_details_authors": "Autorzy",
+    "astronomical_object_details_website": "Strona"
 }

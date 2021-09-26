@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:codetomobile/shared/errors.dart';
 import 'package:codetomobile/shared/routes.dart';
+import 'package:codetomobile/ui/screens/astronomical_object_details/atronomical_object_details.dart';
 import 'package:codetomobile/ui/screens/astronomical_object_list.dart';
-import 'package:codetomobile/ui/screens/atronomical_object_details.dart';
 import 'package:codetomobile/ui/screens/favorite/favorite_list_screen.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';

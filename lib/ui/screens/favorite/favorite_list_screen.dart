@@ -55,12 +55,12 @@ Widget _buildEmptyState(BuildContext context) {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Image.asset('assets/empty_state_box.png'),
-          SizedBox(height: Dimensions.huge),
+          const SizedBox(height: Dimensions.huge),
           Text(
             AppLocalizations.of(context)!.favorite_screen_empty_state_text,
             style: Theme.of(context).textTheme.headline6,
           ),
-          SizedBox(height: Dimensions.basic),
+          const SizedBox(height: Dimensions.basic),
           Text(
             AppLocalizations.of(context)!
                 .favorite_screen_empty_state_description,

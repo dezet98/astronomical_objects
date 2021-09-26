@@ -13,7 +13,7 @@ class LoadDataInProgressState extends LoadDataState {
   LoadDataInProgressState({this.isRefresh = false});
 }
 
-class LoadDataSuccessState<T> extends LoadDataState {
+class LoadDataSuccessState extends LoadDataState {
   final bool isRefresh;
 
   LoadDataSuccessState({this.isRefresh = false});

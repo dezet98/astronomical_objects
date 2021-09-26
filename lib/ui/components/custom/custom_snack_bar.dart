@@ -8,7 +8,7 @@ class CustomSnackBar {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         behavior: SnackBarBehavior.floating,
-        margin: EdgeInsets.all(Dimensions.small),
+        margin: const EdgeInsets.all(Dimensions.small),
         content: Text(contentText),
         action: SnackBarAction(
           label: actionText,

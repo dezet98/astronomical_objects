@@ -4,5 +4,8 @@
     "favorite_screen_app_bar_title": "Favourites",
     "favorite_screen_empty_state_text": "No Favorites",
     "favorite_screen_empty_state_description": "Like an astronomical object and it will show up here.",
-    "favorite_screen_delete_action": "DELETE"
+    "favorite_screen_delete_action": "DELETE",
+    "astronomical_object_details_about": "About",
+    "astronomical_object_details_authors": "Authors",
+    "astronomical_object_details_website": "Website"
 }
