@@ -4,6 +4,8 @@ import 'package:codetomobile/bloc/specific/router/router_bloc.dart';
 import 'package:codetomobile/data/models/astronomical_object.dart';
 import 'package:codetomobile/data/repositories/astronomical_object_repository.dart';
 import 'package:codetomobile/shared/extension.dart';
+import 'package:codetomobile/shared/routes.dart';
+import 'package:codetomobile/ui/screens/photo_view/photo_view_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -55,12 +57,44 @@ class AtronomicalObjectDetails extends StatelessWidget {
             right: 0.0,
             top: 0.0,
             child: SafeArea(
-              child: _buildHeart(context),
+              child: Row(
+                children: [
+                  _buildShowPhoto(context, args.astronomicalObject),
+                  _buildHeart(context),
+                ],
+              ),
             ),
           ),
         ],
       ),
     );
+  }
+
+  Widget _buildShowPhoto(
+      BuildContext context, AstronomicalObject astronomicalObject) {
+    String url = astronomicalObject.hdurl ??
+        astronomicalObject.url ??
+        astronomicalObject.thumbnailUrl ??
+        "";
+
+    return IconButton(
+      icon: const Icon(
+        Icons.remove_red_eye_outlined,
+        color: Colors.white,
+      ),
+      onPressed: () => _routeToPhotoScreen(context, url),
+    );
+  }
+
+  void _routeToPhotoScreen(BuildContext context, String url) {
+    context.bloc<RouterBloc>().add(
+          RouterNavigateToEvent(
+            RouteName.PHOTO_VIEW_SCREEN,
+            routeArgs: PhotoViewScreenArgs(
+              imageUrl: url,
+            ),
+          ),
+        );
   }
 
   Widget _buildHeart(BuildContext context) {

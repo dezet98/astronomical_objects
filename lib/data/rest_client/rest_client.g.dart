@@ -23,7 +23,6 @@ class _RestClient implements RestClient {
       r'count': count,
       r'thumbs': thumbs
     };
-    final _data = <String, dynamic>{};
     final _result = await _dio.fetch<List<dynamic>>(
         _setStreamType<List<AstronomicalObject>>(
             Options(method: 'GET', headers: <String, dynamic>{}, extra: _extra)

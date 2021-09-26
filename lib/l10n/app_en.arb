@@ -7,5 +7,6 @@
     "favorite_screen_delete_action": "DELETE",
     "astronomical_object_details_about": "About",
     "astronomical_object_details_authors": "Authors",
-    "astronomical_object_details_website": "Website"
+    "astronomical_object_details_website": "Website",
+    "photo_view_app_bar_title": "Photo view"
 }
