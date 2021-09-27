@@ -19,17 +19,21 @@ class AstronomicalObjectList extends StatelessWidget {
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: RefreshIndicator(
         onRefresh: () async => await _onRefresh(context),
-        child: CustomScrollView(
-          slivers: <Widget>[
-            const SliverAppBar(toolbarHeight: 0.0),
-            LoadDataBlocBuilder(
-              isSliver: true,
-              loadDataBloc: context.bloc<FetchAtronomicalObjectsBloc>(),
-              buildSuccess: (dynamic data, bool isRefresh) {
-                return buildGrid(context, data);
-              },
-            )
-          ],
+        child: OrientationBuilder(
+          builder: (BuildContext context, Orientation orientation) {
+            return CustomScrollView(
+              slivers: <Widget>[
+                const SliverAppBar(toolbarHeight: 0.0),
+                LoadDataBlocBuilder(
+                  isSliver: true,
+                  loadDataBloc: context.bloc<FetchAtronomicalObjectsBloc>(),
+                  buildSuccess: (dynamic data, bool isRefresh) {
+                    return buildGrid(context, data, orientation);
+                  },
+                )
+              ],
+            );
+          },
         ),
       ),
     );
