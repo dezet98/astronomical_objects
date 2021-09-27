@@ -39,5 +39,5 @@ class AstronomicalObjectList extends StatelessWidget {
 Future<void> _onRefresh(BuildContext context) async {
   context.bloc<FetchAtronomicalObjectsBloc>().add(LoadDataReloadEvent());
 
-  await Future.delayed(Duration(seconds: 2));
+  await Future.delayed(Duration(milliseconds: 1500));
 }

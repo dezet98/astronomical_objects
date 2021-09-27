@@ -57,5 +57,5 @@ Future<void> _onRefreshData(BuildContext context) async {
       .bloc<LoadFavoritesAtronomicalObjectsBloc>()
       .add(LoadDataReloadEvent());
 
-  await Future.delayed(Duration(seconds: 2));
+  await Future.delayed(Duration(milliseconds: 1500));
 }

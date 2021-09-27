@@ -1,9 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:codetomobile/bloc/specific/router/router_bloc.dart';
 import 'package:codetomobile/data/models/astronomical_object.dart';
 import 'package:codetomobile/shared/extension.dart';
-import 'package:codetomobile/shared/logger/app_logger.dart';
 import 'package:codetomobile/shared/routes.dart';
 import 'package:codetomobile/shared/view/dimensions.dart';
+import 'package:codetomobile/ui/components/custom/custom_not_supported_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -26,20 +27,14 @@ Widget buildFavoriteListTile(
     ),
     leading: ClipRRect(
       borderRadius: BorderRadius.circular(Dimensions.small),
-      child: Image.network(
-        astronomicalObject.url ?? "",
-        fit: BoxFit.cover,
+      child: CachedNetworkImage(
+        imageUrl: astronomicalObject.url ?? "",
         height: 62,
         width: 54,
-        errorBuilder:
-            (BuildContext context, Object exception, StackTrace? stackTrace) {
-          AppLogger().log(
-              message:
-                  "Error when loading ${astronomicalObject.url}\n$stackTrace",
-              logLevel: LogLevel.error);
-
-          return const Text('😢');
-        },
+        fit: BoxFit.cover,
+        placeholder: (context, url) =>
+            const Center(child: const CircularProgressIndicator()),
+        errorWidget: (context, url, error) => const CustomNotSupportedImage(),
       ),
     ),
     onTap: () => _routeToAstronomicalObjectDetails(context, astronomicalObject),

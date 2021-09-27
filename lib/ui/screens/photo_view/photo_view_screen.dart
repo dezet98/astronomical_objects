@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:codetomobile/bloc/specific/router/router_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -26,9 +27,13 @@ class PhotoViewScreen extends StatelessWidget {
         backgroundDecoration: BoxDecoration(
           color: Theme.of(context).scaffoldBackgroundColor,
         ),
-        imageProvider: NetworkImage(
+        imageProvider: CachedNetworkImageProvider(
           args.imageUrl,
         ),
+        loadingBuilder:
+            (BuildContext context, ImageChunkEvent? loadingProgress) {
+          return const Center(child: const CircularProgressIndicator());
+        },
       ),
     );
   }

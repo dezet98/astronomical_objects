@@ -1,7 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:codetomobile/bloc/specific/router/router_bloc.dart';
 import 'package:codetomobile/data/models/astronomical_object.dart';
 import 'package:codetomobile/shared/extension.dart';
 import 'package:codetomobile/shared/routes.dart';
+import 'package:codetomobile/ui/components/custom/custom_not_supported_image.dart';
 import 'package:codetomobile/ui/components/specific/heart_builder.dart';
 import 'package:codetomobile/ui/screens/photo_view/photo_view_screen.dart';
 import 'package:flutter/material.dart';
@@ -45,10 +47,14 @@ class AtronomicalObjectDetailsScreen extends StatelessWidget {
         children: <Widget>[
           FlexibleSpaceBar(
             collapseMode: CollapseMode.parallax,
-            background: Image.network(
-              args.astronomicalObject.url ?? "",
-              fit: BoxFit.cover,
-            ),
+            background: CachedNetworkImage(
+                imageUrl: args.astronomicalObject.url ?? "",
+                fit: BoxFit.cover,
+                placeholder: (context, url) =>
+                    const Center(child: const CircularProgressIndicator()),
+                errorWidget: (context, url, error) => CustomNotSupportedImage(
+                      paddingTop: MediaQuery.of(context).padding.top,
+                    )),
           ),
           Positioned(
             right: 0.0,

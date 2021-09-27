@@ -1,8 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:codetomobile/bloc/specific/router/router_bloc.dart';
 import 'package:codetomobile/data/models/astronomical_object.dart';
 import 'package:codetomobile/shared/extension.dart';
-import 'package:codetomobile/shared/logger/app_logger.dart';
 import 'package:codetomobile/shared/routes.dart';
+import 'package:codetomobile/ui/components/custom/custom_not_supported_image.dart';
 import 'package:codetomobile/ui/screens/astronomical_object_details/atronomical_object_details_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -24,18 +25,13 @@ Widget buildGridTile(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Expanded(
-            child: Image.network(
-              astronomicalObject.url ?? "",
+            child: CachedNetworkImage(
+              imageUrl: astronomicalObject.url ?? "",
               fit: BoxFit.cover,
-              errorBuilder: (BuildContext context, Object exception,
-                  StackTrace? stackTrace) {
-                AppLogger().log(
-                    message:
-                        "Error when loading ${astronomicalObject.url}\n$stackTrace",
-                    logLevel: LogLevel.error);
-
-                return const Text('😢');
-              },
+              placeholder: (context, url) =>
+                  const Center(child: const CircularProgressIndicator()),
+              errorWidget: (context, url, error) =>
+                  const CustomNotSupportedImage(),
             ),
           ),
           ListTile(
