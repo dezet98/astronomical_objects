@@ -42,9 +42,8 @@ class FavoriteAstronomicalObjectCubit
 
       _loadFavoritesAtronomicalObjectsBloc
           .removeLocallyElement(_astronomicalObject.apodSite);
-      if (_loadFavoritesAtronomicalObjectsBloc.count == 0) {
-        _loadFavoritesAtronomicalObjectsBloc.add(LoadDataRefreshEvent());
-      }
+      _loadFavoritesAtronomicalObjectsBloc.add(LoadDataRefreshEvent());
+
       await _removeFromLocalDatabase();
 
       emit(FavoriteAstronomicalObjectChangeSuccessState());
