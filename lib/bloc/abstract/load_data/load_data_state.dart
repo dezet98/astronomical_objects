@@ -8,20 +8,21 @@ abstract class LoadDataState extends Equatable {
 class LoadDataInitialState extends LoadDataState {}
 
 class LoadDataInProgressState extends LoadDataState {
-  final bool isRefresh;
+  final bool showInProgress;
 
-  LoadDataInProgressState({this.isRefresh = false});
+  LoadDataInProgressState({this.showInProgress = false});
 }
 
 class LoadDataSuccessState extends LoadDataState {
-  final bool isRefresh;
+  final bool showInProgress;
 
-  LoadDataSuccessState({this.isRefresh = false});
+  LoadDataSuccessState({this.showInProgress = false});
 }
 
 class LoadDataFailureState extends LoadDataState {
   final LoadDataError loadDataError;
-  final bool isRefresh;
+  final bool showInProgress;
 
-  LoadDataFailureState({required this.loadDataError, this.isRefresh = false});
+  LoadDataFailureState(
+      {required this.loadDataError, this.showInProgress = false});
 }

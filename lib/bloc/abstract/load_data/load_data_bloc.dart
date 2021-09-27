@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:codetomobile/shared/errors.dart';
 import 'package:equatable/equatable.dart';
@@ -16,36 +18,51 @@ abstract class LoadDataBloc<ResultType>
 
     on<LoadDataRefreshEvent>((event, emit) async {
       try {
-        emit.call(LoadDataInProgressState(isRefresh: true));
-        emit.call(LoadDataSuccessState(isRefresh: true));
+        emit.call(
+            LoadDataInProgressState(showInProgress: event.showInProgress));
+        emit.call(LoadDataSuccessState(showInProgress: event.showInProgress));
       } catch (e) {
-        emit.call(LoadDataFailureState(
-            loadDataError: LoadDataError.undefined, isRefresh: true));
+        _handleExceptions(e, emit, event.showInProgress);
       }
     });
 
     on<LoadDataInitialEvent>((event, emit) async {
       try {
-        emit.call(LoadDataInProgressState());
+        emit.call(
+            LoadDataInProgressState(showInProgress: event.showInProgress));
         data = await load();
-        emit.call(LoadDataSuccessState());
+        emit.call(LoadDataSuccessState(showInProgress: event.showInProgress));
       } catch (e) {
-        emit.call(LoadDataFailureState(loadDataError: LoadDataError.undefined));
+        _handleExceptions(e, emit, event.showInProgress);
       }
     });
 
     on<LoadDataReloadEvent>((event, emit) async {
       try {
-        emit.call(LoadDataInProgressState(isRefresh: true));
+        emit.call(
+            LoadDataInProgressState(showInProgress: event.showInProgress));
         data = await load();
-        emit.call(LoadDataSuccessState(isRefresh: true));
+        emit.call(LoadDataSuccessState(showInProgress: event.showInProgress));
       } catch (e) {
-        emit.call(LoadDataFailureState(
-            loadDataError: LoadDataError.undefined, isRefresh: true));
+        _handleExceptions(e, emit, event.showInProgress);
       }
     });
 
-    add(LoadDataInitialEvent());
+    add(LoadDataInitialEvent(showInProgress: true));
+  }
+
+  void _handleExceptions(
+      Object e, Emitter<LoadDataState> emit, bool showInProgress) {
+    LoadDataError loadDataError = LoadDataError.UNDEFINED;
+
+    if (e is TimeoutException) {
+      loadDataError = LoadDataError.TIMEOUT;
+    }
+
+    emit.call(
+      LoadDataFailureState(
+          loadDataError: loadDataError, showInProgress: showInProgress),
+    );
   }
 }
 

@@ -15,7 +15,8 @@ class LoadFavoritesAtronomicalObjectsBloc
   @override
   Future<List<AstronomicalObject>> load() async {
     return await _astronomicalObjectRepository
-        .getFavoritesAstronomicalObjects();
+        .getFavoritesAstronomicalObjects()
+        .timeout(Duration(seconds: 6));
   }
 
   bool isFavorite(String? apodSite) {

@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:codetomobile/shared/errors.dart';
 import 'package:codetomobile/shared/routes.dart';
-import 'package:codetomobile/ui/screens/astronomical_object_details/atronomical_object_details.dart';
-import 'package:codetomobile/ui/screens/astronomical_object_list.dart';
+import 'package:codetomobile/ui/screens/astronomical_object_details/atronomical_object_details_screen.dart';
+import 'package:codetomobile/ui/screens/astronomical_object_list/astronomical_object_list_screen.dart';
 import 'package:codetomobile/ui/screens/favorite/favorite_list_screen.dart';
 import 'package:codetomobile/ui/screens/photo_view/photo_view_screen.dart';
 import 'package:equatable/equatable.dart';
@@ -45,7 +45,8 @@ Widget? _fromRouteName(RouteName routeName, RouteArgs? routeArgs) {
       case RouteName.ASTRONOMICAL_OBJECT_DETAILS:
         AtronomicalObjectDetailsArgs atronomicalObjectDetailsArgs =
             routeArgs as AtronomicalObjectDetailsArgs;
-        return AtronomicalObjectDetails(args: atronomicalObjectDetailsArgs);
+        return AtronomicalObjectDetailsScreen(
+            args: atronomicalObjectDetailsArgs);
       case RouteName.FAVORITES_LIST_SCREEN:
         return FavoriteListScreen();
       case RouteName.PHOTO_VIEW_SCREEN:

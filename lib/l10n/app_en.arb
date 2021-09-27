@@ -8,5 +8,9 @@
     "astronomical_object_details_about": "About",
     "astronomical_object_details_authors": "Authors",
     "astronomical_object_details_website": "Website",
-    "photo_view_app_bar_title": "Photo view"
+    "photo_view_app_bar_title": "Photo view",
+    "error_text_undefined": "Unkown error",
+    "error_description_undefined": "Please try refresh",
+    "error_text_timeout": "Network error",
+    "error_description_timeout": "Please connect to the internet"
 }

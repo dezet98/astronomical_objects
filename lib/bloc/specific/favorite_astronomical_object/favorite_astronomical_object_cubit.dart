@@ -55,13 +55,15 @@ class FavoriteAstronomicalObjectCubit
 
   Future<void> _removeFromLocalDatabase() async {
     await _astronomicalObjectRepository
-        .deleteFavoriteAstronomicalObject(_astronomicalObject.apodSite ?? "");
+        .deleteFavoriteAstronomicalObject(_astronomicalObject.apodSite ?? "")
+        .timeout(Duration(seconds: 2));
     isFavorite = false;
   }
 
   Future<void> _addToLocalDatabase() async {
     await _astronomicalObjectRepository
-        .saveFavoriteAstronomicalObject(_astronomicalObject);
+        .saveFavoriteAstronomicalObject(_astronomicalObject)
+        .timeout(Duration(seconds: 2));
     isFavorite = true;
   }
 }

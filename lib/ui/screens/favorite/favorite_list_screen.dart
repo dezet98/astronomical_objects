@@ -2,8 +2,8 @@ import 'package:codetomobile/bloc/abstract/load_data/load_data_bloc.dart';
 import 'package:codetomobile/bloc/specific/load_favorites_astronomical_objects_bloc.dart';
 import 'package:codetomobile/data/models/astronomical_object.dart';
 import 'package:codetomobile/shared/extension.dart';
-import 'package:codetomobile/shared/view/dimensions.dart';
 import 'package:codetomobile/ui/components/bloc_builders/load_data_builder.dart';
+import 'package:codetomobile/ui/components/custom/custom_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -44,32 +44,11 @@ AppBar _buildAppBar(BuildContext context) {
 }
 
 Widget _buildEmptyState(BuildContext context) {
-  return Padding(
-    padding: const EdgeInsets.only(
-      bottom: Dimensions.huge,
-      left: Dimensions.veryHuge,
-      right: Dimensions.veryHuge,
-    ),
-    child: Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset('assets/empty_state_box.png'),
-          const SizedBox(height: Dimensions.huge),
-          Text(
-            AppLocalizations.of(context)!.favorite_screen_empty_state_text,
-            style: Theme.of(context).textTheme.headline6,
-          ),
-          const SizedBox(height: Dimensions.basic),
-          Text(
-            AppLocalizations.of(context)!
-                .favorite_screen_empty_state_description,
-            style: Theme.of(context).textTheme.subtitle1,
-            textAlign: TextAlign.center,
-          ),
-        ],
-      ),
-    ),
+  return CustomInfo(
+    widget: Image.asset('assets/empty_state_box.png'),
+    infoText: AppLocalizations.of(context)!.favorite_screen_empty_state_text,
+    infoDescription:
+        AppLocalizations.of(context)!.favorite_screen_empty_state_description,
   );
 }
 

@@ -8,5 +8,9 @@
     "astronomical_object_details_about": "Opis",
     "astronomical_object_details_authors": "Autorzy",
     "astronomical_object_details_website": "Strona",
-    "photo_view_app_bar_title": "Widok zdjęcia"
+    "photo_view_app_bar_title": "Widok zdjęcia",
+    "error_text_undefined": "Nieznany problem",
+    "error_description_undefined": "Spróbuj odświeżyć ekran",
+    "error_text_timeout": "Problem z siecią",
+    "error_description_timeout": "Upewnij się czy istnieje połączenie z intenetem"
 }

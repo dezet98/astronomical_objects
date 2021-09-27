@@ -1,14 +1,11 @@
-import 'package:codetomobile/bloc/specific/favorite_astronomical_object/favorite_astronomical_object_cubit.dart';
-import 'package:codetomobile/bloc/specific/load_favorites_astronomical_objects_bloc.dart';
 import 'package:codetomobile/bloc/specific/router/router_bloc.dart';
 import 'package:codetomobile/data/models/astronomical_object.dart';
-import 'package:codetomobile/data/repositories/astronomical_object_repository.dart';
 import 'package:codetomobile/shared/extension.dart';
 import 'package:codetomobile/shared/routes.dart';
+import 'package:codetomobile/ui/components/specific/heart_builder.dart';
 import 'package:codetomobile/ui/screens/photo_view/photo_view_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'astronomical_object_details_content.dart';
 
@@ -18,10 +15,10 @@ class AtronomicalObjectDetailsArgs extends RouteArgs {
   AtronomicalObjectDetailsArgs({required this.astronomicalObject});
 }
 
-class AtronomicalObjectDetails extends StatelessWidget {
+class AtronomicalObjectDetailsScreen extends StatelessWidget {
   final AtronomicalObjectDetailsArgs args;
 
-  const AtronomicalObjectDetails({required this.args, Key? key})
+  const AtronomicalObjectDetailsScreen({required this.args, Key? key})
       : super(key: key);
 
   @override
@@ -60,7 +57,7 @@ class AtronomicalObjectDetails extends StatelessWidget {
               child: Row(
                 children: [
                   _buildShowPhoto(context, args.astronomicalObject),
-                  _buildHeart(context),
+                  HeartBuilder(args.astronomicalObject),
                 ],
               ),
             ),
@@ -95,39 +92,5 @@ class AtronomicalObjectDetails extends StatelessWidget {
             ),
           ),
         );
-  }
-
-  Widget _buildHeart(BuildContext context) {
-    return BlocProvider(
-      create: (_) => FavoriteAstronomicalObjectCubit(
-        RepositoryProvider.of<AstronomicalObjectRepository>(context),
-        args.astronomicalObject,
-        context.bloc<LoadFavoritesAtronomicalObjectsBloc>(),
-      ),
-      child: Builder(
-        builder: (BuildContext context) => IconButton(
-          icon: BlocBuilder(
-            bloc: context.cubit<FavoriteAstronomicalObjectCubit>(),
-            buildWhen: (previous, current) {
-              return current is FavoriteAstronomicalObjectInitialState ||
-                      current is FavoriteAstronomicalObjectChangeSuccessState
-                  ? true
-                  : false;
-            },
-            builder: (context, state) {
-              return context.cubit<FavoriteAstronomicalObjectCubit>().isFavorite
-                  ? const Icon(Icons.favorite_outlined)
-                  : const Icon(Icons.favorite_outline_rounded);
-            },
-          ),
-          onPressed: () => _onFavoriteIconPressed(context),
-          color: Colors.white,
-        ),
-      ),
-    );
-  }
-
-  void _onFavoriteIconPressed(BuildContext context) async {
-    await context.cubit<FavoriteAstronomicalObjectCubit>().changeFavorite();
   }
 }

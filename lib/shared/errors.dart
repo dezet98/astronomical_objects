@@ -1,5 +1,6 @@
 enum LoadDataError {
-  undefined,
+  UNDEFINED,
+  TIMEOUT,
 }
 
 enum RouterError {

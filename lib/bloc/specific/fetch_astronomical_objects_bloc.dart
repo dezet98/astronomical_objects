@@ -10,6 +10,10 @@ class FetchAtronomicalObjectsBloc
 
   @override
   Future<List<AstronomicalObject>> load() async {
-    return await _astronomicalObjectRepository.fetchAstronomicalObject();
+    return await _astronomicalObjectRepository
+        .fetchAstronomicalObject()
+        .timeout(
+          Duration(seconds: 6),
+        );
   }
 }

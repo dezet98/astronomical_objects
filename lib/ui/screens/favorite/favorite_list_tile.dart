@@ -7,7 +7,7 @@ import 'package:codetomobile/shared/view/dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-import '../astronomical_object_details/atronomical_object_details.dart';
+import '../astronomical_object_details/atronomical_object_details_screen.dart';
 
 Widget buildFavoriteListTile(
     BuildContext context, AstronomicalObject astronomicalObject) {
